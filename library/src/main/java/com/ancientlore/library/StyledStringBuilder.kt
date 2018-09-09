@@ -1,6 +1,8 @@
 package com.ancientlore.library
 
+import android.support.annotation.ColorInt
 import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import java.util.regex.Pattern
 
 class StyledStringBuilder(val text: CharSequence): SpannableString(text) {
@@ -13,6 +15,16 @@ class StyledStringBuilder(val text: CharSequence): SpannableString(text) {
 		ranges.clear()
 		val pattern = Pattern.quote(prefix) + "\\w+"
 		ranges.addAll(getRanges(pattern))
+		return this
+	}
+
+	/**
+	 * Applies text color for all ranges, that was previously detected
+	 */
+	fun applyTextColor(@ColorInt color: Int): StyledStringBuilder {
+		ranges.forEach {
+			setSpan(ForegroundColorSpan(color), it.start, it.end, SPAN_EXCLUSIVE_EXCLUSIVE)
+		}
 		return this
 	}
 
