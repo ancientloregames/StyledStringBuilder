@@ -2,6 +2,7 @@ package com.ancientlore.library
 
 import android.support.annotation.ColorInt
 import android.text.SpannableString
+import android.text.style.BackgroundColorSpan
 import android.text.style.ForegroundColorSpan
 import java.util.regex.Pattern
 
@@ -24,6 +25,16 @@ class StyledStringBuilder(val text: CharSequence): SpannableString(text) {
 	fun applyTextColor(@ColorInt color: Int): StyledStringBuilder {
 		ranges.forEach {
 			setSpan(ForegroundColorSpan(color), it.start, it.end, SPAN_EXCLUSIVE_EXCLUSIVE)
+		}
+		return this
+	}
+
+	/**
+	 * Applies background color for all ranges, that was previously detected
+	 */
+	fun applyBackColor(@ColorInt color: Int): StyledStringBuilder {
+		ranges.forEach {
+			setSpan(BackgroundColorSpan(color), it.start, it.end, SPAN_EXCLUSIVE_EXCLUSIVE)
 		}
 		return this
 	}
