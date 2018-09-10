@@ -1,3 +1,5 @@
 <resources>
 	<string name="app_name">StyledStringBuilder</string>
+	
+	<string name="example_text_1">One Ring to rule them all, One Ring to find them, One Ring to bring them all and in the darkness bind them.</string>
 </resources>
