@@ -1,9 +1,11 @@
 package com.ancientlore.library
 
+import android.graphics.Typeface
 import android.support.annotation.ColorInt
 import android.text.SpannableString
 import android.text.style.BackgroundColorSpan
 import android.text.style.ForegroundColorSpan
+import android.text.style.StyleSpan
 import java.util.regex.Pattern
 
 class StyledStringBuilder(val text: CharSequence): SpannableString(text) {
@@ -45,6 +47,16 @@ class StyledStringBuilder(val text: CharSequence): SpannableString(text) {
 	fun applyBackColor(@ColorInt color: Int): StyledStringBuilder {
 		ranges.forEach {
 			setSpan(BackgroundColorSpan(color), it.start, it.end, SPAN_EXCLUSIVE_EXCLUSIVE)
+		}
+		return this
+	}
+
+	/**
+	 * Makes all ranges, that was previously detected, bold
+	 */
+	fun makeBold(): StyledStringBuilder {
+		ranges.forEach {
+			setSpan(StyleSpan(Typeface.BOLD), it.start, it.end, SPAN_EXCLUSIVE_EXCLUSIVE)
 		}
 		return this
 	}
