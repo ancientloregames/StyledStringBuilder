@@ -10,6 +10,16 @@ class StyledStringBuilder(val text: CharSequence): SpannableString(text) {
 	private val ranges = mutableListOf<Range>()
 
 	/**
+	 * Find and store all ranges in the initial string, that represents the exact word
+	 */
+	fun forAll(word: String): StyledStringBuilder {
+		ranges.clear()
+		val pattern = Pattern.quote(word)
+		ranges.addAll(getRanges(pattern))
+		return this
+	}
+
+	/**
 	 * Find and store all ranges in the initial string, that starts with prefix
 	 */
 	fun forAllStartWith(prefix: String): StyledStringBuilder {

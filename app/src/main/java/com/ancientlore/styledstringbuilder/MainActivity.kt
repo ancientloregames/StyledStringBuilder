@@ -17,6 +17,8 @@ class MainActivity : AppCompatActivity() {
 				.applyTextColor(ContextCompat.getColor(applicationContext, android.R.color.holo_red_dark))
 				.forAllStartWith("R")
 				.applyBackColor(ContextCompat.getColor(applicationContext, android.R.color.holo_orange_dark))
+				.forAll("them")
+				.applyBackColor(ContextCompat.getColor(applicationContext, android.R.color.holo_blue_dark))
 
 		textField.text = styledText
 	}
