@@ -81,6 +81,16 @@ class StyledStringBuilder(val text: CharSequence): SpannableString(text) {
 		return this
 	}
 
+	/**
+	 * Makes all ranges, that was previously detected, normal
+	 */
+	fun makeNormal(): StyledStringBuilder {
+		ranges.forEach {
+			setSpan(StyleSpan(Typeface.NORMAL), it.start, it.end, SPAN_EXCLUSIVE_EXCLUSIVE)
+		}
+		return this
+	}
+
 	private fun getRanges(pattern: String): List<Range> {
 		val ranges = mutableListOf<Range>()
 		val matcher = Pattern.compile(pattern).matcher(text)
