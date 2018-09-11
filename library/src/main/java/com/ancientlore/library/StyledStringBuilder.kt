@@ -12,6 +12,16 @@ class StyledStringBuilder(val text: CharSequence): SpannableString(text) {
 	private val ranges = mutableListOf<Range>()
 
 	/**
+	 * Select whole text as range
+	 */
+	fun forAll(): StyledStringBuilder {
+		ranges.clear()
+		val range = Range(0, text.length)
+		ranges.add(range)
+		return this
+	}
+
+	/**
 	 * Find and store all ranges in the initial string, that represents the exact word
 	 */
 	fun forAll(word: String): StyledStringBuilder {
