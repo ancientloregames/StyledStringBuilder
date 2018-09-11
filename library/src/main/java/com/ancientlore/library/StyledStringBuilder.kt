@@ -61,6 +61,16 @@ class StyledStringBuilder(val text: CharSequence): SpannableString(text) {
 		return this
 	}
 
+	/**
+	 * Makes all ranges, that was previously detected, italic
+	 */
+	fun makeItalic(): StyledStringBuilder {
+		ranges.forEach {
+			setSpan(StyleSpan(Typeface.ITALIC), it.start, it.end, SPAN_EXCLUSIVE_EXCLUSIVE)
+		}
+		return this
+	}
+
 	private fun getRanges(pattern: String): List<Range> {
 		val ranges = mutableListOf<Range>()
 		val matcher = Pattern.compile(pattern).matcher(text)

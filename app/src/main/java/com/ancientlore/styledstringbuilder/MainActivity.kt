@@ -21,6 +21,8 @@ class MainActivity : AppCompatActivity() {
 				.applyBackColor(ContextCompat.getColor(applicationContext, android.R.color.holo_blue_dark))
 				.forAll("all")
 				.makeBold()
+				.forAllStartWith("th")
+				.makeItalic()
 
 		textField.text = styledText
 	}
