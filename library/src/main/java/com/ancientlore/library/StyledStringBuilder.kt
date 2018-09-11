@@ -2,10 +2,12 @@ package com.ancientlore.library
 
 import android.graphics.Typeface
 import android.support.annotation.ColorInt
+import android.text.Annotation
 import android.text.SpannableString
 import android.text.style.BackgroundColorSpan
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
+import android.text.style.UnderlineSpan
 import java.util.regex.Pattern
 
 class StyledStringBuilder(val text: CharSequence): SpannableString(text) {
@@ -87,6 +89,26 @@ class StyledStringBuilder(val text: CharSequence): SpannableString(text) {
 	fun makeNormal(): StyledStringBuilder {
 		ranges.forEach {
 			setSpan(StyleSpan(Typeface.NORMAL), it.start, it.end, SPAN_EXCLUSIVE_EXCLUSIVE)
+		}
+		return this
+	}
+
+	/**
+	 * Makes all ranges, that was previously detected, underlined
+	 */
+	fun makeUnderlined(): StyledStringBuilder {
+		ranges.forEach {
+			setSpan(UnderlineSpan(), it.start, it.end, SPAN_EXCLUSIVE_EXCLUSIVE)
+		}
+		return this
+	}
+
+	/**
+	 * Makes all ranges, that was previously detected, annotated
+	 */
+	fun annotate(key: String, value: String): StyledStringBuilder {
+		ranges.forEach {
+			setSpan(Annotation(key, value), it.start, it.end, SPAN_EXCLUSIVE_EXCLUSIVE)
 		}
 		return this
 	}
