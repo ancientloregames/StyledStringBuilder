@@ -57,6 +57,18 @@ class StyledStringBuilder(val text: CharSequence): SpannableString(text) {
 	}
 
 	/**
+	 * Find and store a range in the initial string, that represents the fisrt occurrence of the word
+	 */
+	fun forFirst(word: String): StyledStringBuilder {
+		ranges.clear()
+		val pattern = Pattern.quote(word)
+		getRanges(pattern).firstOrNull()?.let {
+			ranges.add(it)
+		}
+		return this
+	}
+
+	/**
 	 * Applies text color for all ranges, that was previously detected
 	 */
 	fun applyTextColor(@ColorInt color: Int): StyledStringBuilder {
