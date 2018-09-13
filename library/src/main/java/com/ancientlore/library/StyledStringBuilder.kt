@@ -126,6 +126,11 @@ class StyledStringBuilder(val text: CharSequence): SpannableString(text) {
 		return this
 	}
 
+	fun removeStyles(clazz: Class<*>): StyledStringBuilder {
+		removeSpan(clazz)
+		return this
+	}
+
 	private fun getRanges(pattern: String): List<Range> {
 		val ranges = mutableListOf<Range>()
 		val matcher = Pattern.compile(pattern).matcher(text)
