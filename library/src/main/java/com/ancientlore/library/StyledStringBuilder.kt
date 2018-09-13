@@ -11,7 +11,20 @@ import android.text.style.UnderlineSpan
 import java.util.regex.Pattern
 
 class StyledStringBuilder(val text: CharSequence): SpannableString(text) {
+
+	data class Range(val start: Int, val end: Int)
+
 	private val ranges = mutableListOf<Range>()
+
+	/**
+	 * Select exact the range
+	 */
+	fun forRange(start: Int, end: Int): StyledStringBuilder {
+		ranges.clear()
+		if (isValidPos(start) && isValidPos(end))
+			ranges.add(Range(start, end))
+		return this
+	}
 
 	/**
 	 * Select whole text as range
@@ -122,5 +135,5 @@ class StyledStringBuilder(val text: CharSequence): SpannableString(text) {
 		return ranges
 	}
 
-	data class Range(val start: Int, val end: Int)
+	private fun isValidPos(pos: Int) = pos >= 0 && text.length > pos
 }
