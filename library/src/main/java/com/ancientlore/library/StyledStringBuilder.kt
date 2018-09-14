@@ -4,6 +4,7 @@ import android.graphics.Typeface
 import android.support.annotation.ColorInt
 import android.text.Annotation
 import android.text.SpannableString
+import android.text.Spanned
 import android.text.style.BackgroundColorSpan
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
@@ -15,6 +16,8 @@ class StyledStringBuilder(val text: CharSequence): SpannableString(text) {
 	data class Range(val start: Int, val end: Int)
 
 	private val ranges = mutableListOf<Range>()
+
+	private var spanMode = Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
 
 	/**
 	 * Select exact the range
@@ -85,7 +88,7 @@ class StyledStringBuilder(val text: CharSequence): SpannableString(text) {
 	 */
 	fun applyTextColor(@ColorInt color: Int): StyledStringBuilder {
 		ranges.forEach {
-			setSpan(ForegroundColorSpan(color), it.start, it.end, SPAN_EXCLUSIVE_EXCLUSIVE)
+			setSpan(ForegroundColorSpan(color), it.start, it.end, spanMode)
 		}
 		return this
 	}
@@ -95,7 +98,7 @@ class StyledStringBuilder(val text: CharSequence): SpannableString(text) {
 	 */
 	fun applyBackColor(@ColorInt color: Int): StyledStringBuilder {
 		ranges.forEach {
-			setSpan(BackgroundColorSpan(color), it.start, it.end, SPAN_EXCLUSIVE_EXCLUSIVE)
+			setSpan(BackgroundColorSpan(color), it.start, it.end, spanMode)
 		}
 		return this
 	}
@@ -105,7 +108,7 @@ class StyledStringBuilder(val text: CharSequence): SpannableString(text) {
 	 */
 	fun makeBold(): StyledStringBuilder {
 		ranges.forEach {
-			setSpan(StyleSpan(Typeface.BOLD), it.start, it.end, SPAN_EXCLUSIVE_EXCLUSIVE)
+			setSpan(StyleSpan(Typeface.BOLD), it.start, it.end, spanMode)
 		}
 		return this
 	}
@@ -115,7 +118,7 @@ class StyledStringBuilder(val text: CharSequence): SpannableString(text) {
 	 */
 	fun makeItalic(): StyledStringBuilder {
 		ranges.forEach {
-			setSpan(StyleSpan(Typeface.ITALIC), it.start, it.end, SPAN_EXCLUSIVE_EXCLUSIVE)
+			setSpan(StyleSpan(Typeface.ITALIC), it.start, it.end, spanMode)
 		}
 		return this
 	}
@@ -125,7 +128,7 @@ class StyledStringBuilder(val text: CharSequence): SpannableString(text) {
 	 */
 	fun makeNormal(): StyledStringBuilder {
 		ranges.forEach {
-			setSpan(StyleSpan(Typeface.NORMAL), it.start, it.end, SPAN_EXCLUSIVE_EXCLUSIVE)
+			setSpan(StyleSpan(Typeface.NORMAL), it.start, it.end, spanMode)
 		}
 		return this
 	}
@@ -135,7 +138,7 @@ class StyledStringBuilder(val text: CharSequence): SpannableString(text) {
 	 */
 	fun makeUnderlined(): StyledStringBuilder {
 		ranges.forEach {
-			setSpan(UnderlineSpan(), it.start, it.end, SPAN_EXCLUSIVE_EXCLUSIVE)
+			setSpan(UnderlineSpan(), it.start, it.end, spanMode)
 		}
 		return this
 	}
@@ -145,8 +148,13 @@ class StyledStringBuilder(val text: CharSequence): SpannableString(text) {
 	 */
 	fun annotate(key: String, value: String): StyledStringBuilder {
 		ranges.forEach {
-			setSpan(Annotation(key, value), it.start, it.end, SPAN_EXCLUSIVE_EXCLUSIVE)
+			setSpan(Annotation(key, value), it.start, it.end, spanMode)
 		}
+		return this
+	}
+
+	fun setSpanMode(spanMode: Int): StyledStringBuilder {
+		this.spanMode = spanMode
 		return this
 	}
 
