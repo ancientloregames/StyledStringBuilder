@@ -83,6 +83,14 @@ class StyledStringBuilder(val text: CharSequence): SpannableString(text) {
 		return this
 	}
 
+	fun doOnClick(action: OnSpanClickListener): StyledStringBuilder {
+		ranges.forEach {
+			val spanText = subSequence(it.start, it.end)
+			setSpan(ClickableTextSpan(spanText, action), it.start, it.end, spanMode)
+		}
+		return this
+	}
+
 	/**
 	 * Applies text color for all ranges, that was previously detected
 	 */
