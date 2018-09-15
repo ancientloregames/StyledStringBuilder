@@ -5,10 +5,12 @@ import android.support.annotation.ColorInt
 import android.text.Annotation
 import android.text.SpannableString
 import android.text.Spanned
+import android.text.method.LinkMovementMethod
 import android.text.style.BackgroundColorSpan
 import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
 import android.text.style.UnderlineSpan
+import android.widget.TextView
 import java.util.regex.Pattern
 
 class StyledStringBuilder(val text: CharSequence): SpannableString(text) {
@@ -83,7 +85,8 @@ class StyledStringBuilder(val text: CharSequence): SpannableString(text) {
 		return this
 	}
 
-	fun doOnClick(action: OnSpanClickListener): StyledStringBuilder {
+	fun doOnClick(view: TextView, action: OnSpanClickListener): StyledStringBuilder {
+		makeTagsClickable(view)
 		ranges.forEach {
 			val spanText = subSequence(it.start, it.end)
 			setSpan(ClickableTextSpan(spanText, action), it.start, it.end, spanMode)
@@ -179,6 +182,8 @@ class StyledStringBuilder(val text: CharSequence): SpannableString(text) {
 		}
 		return ranges
 	}
+
+	private fun makeTagsClickable(view: TextView) { view.movementMethod = LinkMovementMethod.getInstance() }
 
 	private fun isValidPos(pos: Int) = pos >= 0 && text.length > pos
 }
