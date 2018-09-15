@@ -1,6 +1,9 @@
 package com.ancientlore.library
 
+import android.content.Context
+import android.content.Intent
 import android.graphics.Typeface
+import android.net.Uri
 import android.support.annotation.ColorInt
 import android.text.Annotation
 import android.text.SpannableString
@@ -85,11 +88,27 @@ class StyledStringBuilder(val text: CharSequence): SpannableString(text) {
 		return this
 	}
 
+	/**
+	 * Sets actions on the clicked text ranges, that was previously detected
+	 */
 	fun doOnClick(view: TextView, action: OnSpanClickListener): StyledStringBuilder {
 		makeTagsClickable(view)
 		ranges.forEach {
 			val spanText = subSequence(it.start, it.end)
 			setSpan(ClickableTextSpan(spanText, action), it.start, it.end, spanMode)
+		}
+		return this
+	}
+
+	/**
+	 * Opens external url on the clicked text ranges, that was previously detected
+	 */
+	fun setLink(view: TextView, uri: Uri): StyledStringBuilder {
+		makeTagsClickable(view)
+		ranges.forEach {
+			val spanText = subSequence(it.start, it.end)
+			val listener = createUrlListener(view.context, uri)
+			setSpan(ClickableTextSpan(spanText, listener), it.start, it.end, spanMode)
 		}
 		return this
 	}
@@ -181,6 +200,16 @@ class StyledStringBuilder(val text: CharSequence): SpannableString(text) {
 			ranges.add(Range(matcher.start(), matcher.end()))
 		}
 		return ranges
+	}
+
+	private fun createUrlListener(context: Context?, uri: Uri): OnSpanClickListener {
+		return object : OnSpanClickListener {
+			override fun onClick(span: CharSequence) {
+				val intent = Intent(Intent.ACTION_VIEW, uri)
+				intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+				context?.startActivity(intent)
+			}
+		}
 	}
 
 	private fun makeTagsClickable(view: TextView) { view.movementMethod = LinkMovementMethod.getInstance() }
