@@ -101,7 +101,12 @@ class StyledStringBuilder(val text: CharSequence): SpannableString(text) {
 	}
 
 	/**
-	 * Opens external url on the clicked text ranges, that was previously detected
+	 * Opens an external url on the clicked text ranges, that was previously detected
+	 */
+	fun setLink(view: TextView, url: String) = setLink(view, Uri.parse(url))
+
+	/**
+	 * Opens an external uri on the clicked text ranges, that was previously detected
 	 */
 	fun setLink(view: TextView, uri: Uri): StyledStringBuilder {
 		makeTagsClickable(view)
