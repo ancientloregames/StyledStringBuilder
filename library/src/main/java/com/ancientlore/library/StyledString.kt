@@ -155,6 +155,13 @@ class StyledString(val text: CharSequence): SpannableString(text) {
 		return this
 	}
 
+	fun setFont(fontFamily: String): StyledString {
+		ranges.forEach {
+			setSpan(TypefaceSpan(fontFamily), it.start, it.end, spanMode)
+		}
+		return this
+	}
+
 	/**
 	 * Makes all ranges, that was previously detected, bold
 	 */
