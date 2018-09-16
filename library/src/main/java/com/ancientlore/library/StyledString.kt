@@ -24,7 +24,7 @@ class StyledString(val text: CharSequence): SpannableString(text) {
 	private var spanMode = Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
 
 	/**
-	 * Select exact the range
+	 * Select the exact range
 	 */
 	fun forRange(start: Int, end: Int): StyledString {
 		ranges.clear()
@@ -34,7 +34,16 @@ class StyledString(val text: CharSequence): SpannableString(text) {
 	}
 
 	/**
-	 * Select whole text as range
+	 * Select the exact list of ranges
+	 */
+	fun forRanges(ranges: List<Range>): StyledString {
+		this.ranges.clear()
+		this.ranges.addAll(ranges)
+		return this
+	}
+
+	/**
+	 * Select the whole text as range
 	 */
 	fun forAll(): StyledString {
 		ranges.clear()
