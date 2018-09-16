@@ -217,7 +217,11 @@ class StyledStringBuilder(val text: CharSequence): SpannableString(text) {
 		}
 	}
 
-	private fun makeTagsClickable(view: TextView) { view.movementMethod = LinkMovementMethod.getInstance() }
+	private fun makeTagsClickable(view: TextView) {
+		view.movementMethod = ClickableMovementMethod
+		view.isLongClickable = false
+		view.isClickable = false
+	}
 
 	private fun isValidPos(pos: Int) = pos >= 0 && text.length > pos
 }
