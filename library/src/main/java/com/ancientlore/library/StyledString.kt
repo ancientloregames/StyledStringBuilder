@@ -196,11 +196,31 @@ class StyledString(val text: CharSequence): SpannableString(text) {
 	}
 
 	/**
+	 * Makes all ranges, that was previously detected, crossed out
+	 */
+	fun crossOut(): StyledString {
+		ranges.forEach {
+			setSpan(StrikethroughSpan(), it.start, it.end, spanMode)
+		}
+		return this
+	}
+
+	/**
 	 * Set the text size for all ranges, that was previously detected
 	 */
 	fun setSize(size: Int): StyledString {
 		ranges.forEach {
 			setSpan(AbsoluteSizeSpan(size), it.start, it.end, spanMode)
+		}
+		return this
+	}
+
+	/**
+	 * Set the text size in dp for all ranges, that was previously detected
+	 */
+	fun setSizeDp(size: Int): StyledString {
+		ranges.forEach {
+			setSpan(AbsoluteSizeSpan(size, true), it.start, it.end, spanMode)
 		}
 		return this
 	}
