@@ -76,6 +76,18 @@ class StyledString(val text: CharSequence): SpannableString(text) {
 	}
 
 	/**
+	 * Find and store a range in the initial string, that represents the last occurrence of the word
+	 */
+	fun forLast(word: String): StyledString {
+		ranges.clear()
+		val pattern = Pattern.quote(word)
+		getRanges(pattern).lastOrNull()?.let {
+			ranges.add(it)
+		}
+		return this
+	}
+
+	/**
 	 * Find and store a range in the initial string, that represents the fisrt occurrence of the word with prefix
 	 */
 	fun forFirstWith(prefix: String): StyledString {
