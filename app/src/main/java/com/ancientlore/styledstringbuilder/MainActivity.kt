@@ -3,7 +3,8 @@ package com.ancientlore.styledstringbuilder
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
-import com.ancientlore.library.StyledStringBuilder
+import com.ancientlore.library.StyledString
+import com.ancientlore.styledstring.R
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -12,7 +13,7 @@ class MainActivity : AppCompatActivity() {
 		super.onCreate(savedInstanceState)
 		setContentView(R.layout.activity_main)
 
-		val styledText = StyledStringBuilder(textField.text)
+		val styledText = StyledString(textField.text)
 				.forAllStartWith("O")
 				.applyTextColor(ContextCompat.getColor(applicationContext, android.R.color.holo_red_dark))
 				.forAllStartWith("R")
