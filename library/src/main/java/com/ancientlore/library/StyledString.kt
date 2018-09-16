@@ -8,10 +8,7 @@ import android.support.annotation.ColorInt
 import android.text.Annotation
 import android.text.SpannableString
 import android.text.Spanned
-import android.text.style.BackgroundColorSpan
-import android.text.style.ForegroundColorSpan
-import android.text.style.StyleSpan
-import android.text.style.UnderlineSpan
+import android.text.style.*
 import android.widget.TextView
 import java.util.regex.Pattern
 
@@ -194,6 +191,16 @@ class StyledString(val text: CharSequence): SpannableString(text) {
 	fun makeUnderlined(): StyledString {
 		ranges.forEach {
 			setSpan(UnderlineSpan(), it.start, it.end, spanMode)
+		}
+		return this
+	}
+
+	/**
+	 * Set the text size for all ranges, that was previously detected
+	 */
+	fun setSize(size: Int): StyledString {
+		ranges.forEach {
+			setSpan(AbsoluteSizeSpan(size), it.start, it.end, spanMode)
 		}
 		return this
 	}
