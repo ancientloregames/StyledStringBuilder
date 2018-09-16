@@ -70,6 +70,16 @@ class StyledString(val text: CharSequence): SpannableString(text) {
 	}
 
 	/**
+	 * Find and store all ranges in the initial string, that ends with sufix
+	 */
+	fun forAllEndWith(sufix: String): StyledString {
+		ranges.clear()
+		val pattern = "\\w+" + Pattern.quote(sufix)
+		ranges.addAll(getRanges(pattern))
+		return this
+	}
+
+	/**
 	 * Find and store a range in the initial string, that represents the fisrt occurrence of the word
 	 */
 	fun forFirst(word: String): StyledString {
