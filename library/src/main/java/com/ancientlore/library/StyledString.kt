@@ -5,6 +5,7 @@ import android.content.Intent
 import android.graphics.Typeface
 import android.net.Uri
 import android.support.annotation.ColorInt
+import android.support.annotation.FloatRange
 import android.text.Annotation
 import android.text.SpannableString
 import android.text.Spanned
@@ -238,6 +239,16 @@ class StyledString(val text: CharSequence): SpannableString(text) {
 	fun setSizeDp(size: Int): StyledString {
 		ranges.forEach {
 			setSpan(AbsoluteSizeSpan(size, true), it.start, it.end, spanMode)
+		}
+		return this
+	}
+
+	/**
+	 * Set the text size to some proportion based on current size, that was previously detected
+	 */
+	fun setScaledSize(@FloatRange(from = .0) scale: Float): StyledString {
+		ranges.forEach {
+			setSpan(RelativeSizeSpan(scale), it.start, it.end, spanMode)
 		}
 		return this
 	}
