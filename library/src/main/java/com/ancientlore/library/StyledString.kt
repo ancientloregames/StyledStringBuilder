@@ -263,6 +263,16 @@ class StyledString(val text: CharSequence): SpannableString(text) {
 		return this
 	}
 
+	/**
+	 *  Moves the position of the text baseline higher for the ranges, that were previously detected
+	 */
+	fun makeSuperscript(): StyledString {
+		ranges.forEach {
+			setSpan(SuperscriptSpan(), it.start, it.end, spanMode)
+		}
+		return this
+	}
+
 	fun setSpanMode(spanMode: Int): StyledString {
 		this.spanMode = spanMode
 		return this
