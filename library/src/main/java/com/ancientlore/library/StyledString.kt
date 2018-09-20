@@ -166,6 +166,16 @@ class StyledString(val text: CharSequence): SpannableString(text) {
 		return this
 	}
 
+	/**
+	 * Applies background color in rounded span for all ranges, that was previously detected
+	 */
+	fun applyBackColor(@ColorInt backColor: Int, cornerRadius: Int): StyledString {
+		ranges.forEach {
+			setSpan(RoundedBackgroundSpan(backgroundColor = backColor, cornerRadius = cornerRadius), it.start, it.end, spanMode)
+		}
+		return this
+	}
+
 	fun setFont(fontFamily: String): StyledString {
 		ranges.forEach {
 			setSpan(TypefaceSpan(fontFamily), it.start, it.end, spanMode)
