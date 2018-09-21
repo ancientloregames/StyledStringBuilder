@@ -13,7 +13,7 @@ import android.text.style.*
 import android.widget.TextView
 import java.util.regex.Pattern
 
-class StyledString(val text: CharSequence): SpannableString(text) {
+class StyledString(private val text: CharSequence): SpannableString(text) {
 
 	data class Range(val start: Int, val end: Int)
 
