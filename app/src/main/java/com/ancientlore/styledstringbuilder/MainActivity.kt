@@ -3,8 +3,9 @@ package com.ancientlore.styledstringbuilder
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
+import android.text.SpannableStringBuilder
 import com.ancientlore.library.StyledString
-import com.ancientlore.styledstring.R
+import com.ancientlore.library.toStyledString
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -25,6 +26,12 @@ class MainActivity : AppCompatActivity() {
 				.forAllStartWith("th")
 				.makeItalic()
 
-		textField.text = styledText
+		val styledText2 = SpannableStringBuilder("aaa")
+				.append(" b")
+				.toStyledString()
+				.forAll()
+				.crossOut()
+
+		textField.text = styledText2
 	}
 }
