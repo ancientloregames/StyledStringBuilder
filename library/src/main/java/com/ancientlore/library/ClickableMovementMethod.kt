@@ -15,14 +15,16 @@ object ClickableMovementMethod : BaseMovementMethod() {
 
 	override fun onTouchEvent(view: TextView, buffer: Spannable, event: MotionEvent): Boolean {
 		val action = event.actionMasked
-
-		if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_DOWN) {
+		if ((action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_DOWN)
+				&& view.paint.measureText(view.text.toString()) >= event.x) {
 			val spanOffset = getSpanOffset(view, event)
 
 			getClickableSpan(buffer, spanOffset)?.let {
 				if (action != MotionEvent.ACTION_UP)
 					Selection.setSelection(buffer, buffer.getSpanStart(it), buffer.getSpanEnd(it))
 				else it.onClick(view)
+
+				return true
 			} ?: Selection.removeSelection(buffer)
 		}
 
@@ -30,7 +32,7 @@ object ClickableMovementMethod : BaseMovementMethod() {
 	}
 
 	private fun getClickableSpan(buffer: Spannable, offset: Int) =
-			buffer.getSpans(offset, offset, ClickableSpan::class.java).first()
+			buffer.getSpans(offset, offset, ClickableSpan::class.java).firstOrNull()
 
 	private fun getSpanOffset(view: TextView, event: MotionEvent): Int {
 		val x = event.x.toInt() - view.totalPaddingLeft + view.scrollX
