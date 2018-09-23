@@ -4,8 +4,10 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Typeface
 import android.net.Uri
+import android.os.Build
 import android.support.annotation.ColorInt
 import android.support.annotation.FloatRange
+import android.support.annotation.RequiresApi
 import android.text.Annotation
 import android.text.SpannableString
 import android.text.Spanned
@@ -176,9 +178,23 @@ class StyledString(private val text: CharSequence): SpannableString(text) {
 		return this
 	}
 
+	/**
+	 * Applies the specified font family for all ranges, that was previously detected
+	 */
 	fun setFont(fontFamily: String): StyledString {
 		ranges.forEach {
 			setSpan(TypefaceSpan(fontFamily), it.start, it.end, spanMode)
+		}
+		return this
+	}
+
+	/**
+	 * Applies the specified font for all ranges, that was previously detected
+	 */
+	@RequiresApi(Build.VERSION_CODES.P)
+	fun setFont(typeface: Typeface): StyledString {
+		ranges.forEach {
+			setSpan(TypefaceSpan(typeface), it.start, it.end, spanMode)
 		}
 		return this
 	}
