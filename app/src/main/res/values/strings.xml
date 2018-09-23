@@ -3,7 +3,7 @@
 
 	<string name="clicked">Clicked!</string>
 
-	<string name="example_text">This library allows you to style texts within you App in a very convinient builder-like way.
+	<string name="example_text">This library allows you to style texts within your App in a very convinient builder-like manner.
 	You can change text color, its background, make it bold, italic, underlined, crossedout, set fonts, wrap it in
-	rounded bubbles, set size,make subscripts and superscripts, annote it, make clickable and even assign outer links!</string>
+	rounded bubbles, set size, make subscripts and superscripts, annote it, make clickable and even assign outer links!</string>
 </resources>
