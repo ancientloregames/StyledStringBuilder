@@ -1,5 +1,9 @@
 <resources>
 	<string name="app_name">StyledStringBuilder</string>
-	
-	<string name="example_text_1">One Ring to rule them all, One Ring to find them, One Ring to bring them all and in the darkness bind them.</string>
+
+	<string name="clicked">Clicked!</string>
+
+	<string name="example_text">This library allows you to style texts within you App in a very convinient builder-like way.
+	You can change text color, its background, make it bold, italic, underlined, crossedout, set fonts, wrap it in
+	rounded bubbles, set size,make subscripts and superscripts, annote it, make clickable and even assign outer links!</string>
 </resources>
